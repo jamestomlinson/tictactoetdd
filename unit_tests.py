@@ -166,7 +166,7 @@ class WinnerTests(unittest.TestCase):
         self.grid[1] = "X"
         self.grid[2] = "X"
 
-        winner = tictactoe.get_winner(self.grid, "X", "O")
+        winner = tictactoe.get_winner(self.grid, "X")
 
         self.assertEqual(winner, 1)
 
@@ -175,7 +175,7 @@ class WinnerTests(unittest.TestCase):
         self.grid[1] = "O"
         self.grid[2] = "O"
 
-        winner = tictactoe.get_winner(self.grid, "O", "X")
+        winner = tictactoe.get_winner(self.grid, "O")
 
         self.assertEqual(winner, 1)
 
@@ -184,7 +184,7 @@ class WinnerTests(unittest.TestCase):
         self.grid[1] = "X"
         self.grid[2] = "X"
 
-        winner = tictactoe.get_winner(self.grid, "O", "X")
+        winner = tictactoe.get_winner(self.grid, "O")
 
         self.assertEqual(winner, -1)
 
@@ -193,19 +193,19 @@ class WinnerTests(unittest.TestCase):
         self.grid[1] = "O"
         self.grid[2] = "O"
 
-        winner = tictactoe.get_winner(self.grid, "X", "O")
+        winner = tictactoe.get_winner(self.grid, "X")
 
         self.assertEqual(winner, -1)
 
     def test_get_winner_with_full_grid_and_no_combo_returns_0(self):
-        winner = tictactoe.get_winner(self.grid, "X", "O")
+        winner = tictactoe.get_winner(self.grid, "X")
 
         self.assertEqual(winner, 0)
 
     def test_get_winner_with_empty_cells_returns_none(self):
         grid = tictactoe.create_grid()
 
-        winner = tictactoe.get_winner(grid, "X", "O")
+        winner = tictactoe.get_winner(grid, "X")
 
         self.assertIsNone(winner)
 

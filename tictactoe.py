@@ -9,10 +9,12 @@ def create_grid():
 
 def ask_binary_question(get_binary_response):
     """Returns True if "y", False if "n", otherwise returns None."""
-    if get_binary_response().lower() == "y":
+    response = get_binary_response().lower()
+
+    if response == "y":
         return True
 
-    if get_binary_response().lower() == "n":
+    elif response == "n":
         return False
 
     return None
@@ -33,8 +35,6 @@ def ask_number_question(get_number_response):
 
     if number in range(GRID_SIZE):
         return number
-
-    return None
 
 
 def get_number_response():
@@ -66,7 +66,7 @@ def switch(turn):
     return not turn
 
 
-def get_winner(grid, computer, player):
+def get_winner(grid, computer):
     """Determines if there is a winning combination of pieces in grid."""
     win_states = [(0, 1, 2),    # Top row
                   (3, 4, 5),    # Middle row
@@ -87,4 +87,35 @@ def get_winner(grid, computer, player):
     if SPACE not in grid:
         return 0
 
-    return None
+
+def print_welcome():
+    """Prints the start of game message."""
+    print "\nWelcome to Tic Tac Toe!\n"
+    print "The game is played on a 3x3 board with the following layout:"
+    print """
+                1 | 2 | 3
+                ---------
+                4 | 5 | 6
+                ---------
+                7 | 8 | 9\n"""
+    print "When prompted, select the number that corresponds to your move.\n"
+    print "Would you like to go first?"
+
+
+def get_first_turn():
+    """Returns True if the computer goes first, otherwise False."""
+    turn = None
+
+    while turn is None:
+        turn = ask_binary_question(get_binary_response)
+
+        if turn is None:
+            print "Invalid choice. Please try again."
+
+    return not turn
+
+
+def main():
+    """Main game loop."""
+    print_welcome()
+    computer_turn = get_first_turn()
