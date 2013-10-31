@@ -124,8 +124,23 @@ def set_pieces(turn):
         return "O", "X"
 
 
+def print_grid(grid):
+    """Prints the grid to the console."""
+    print
+    print "\t", grid[0], "|", grid[1], "|", grid[2]
+    print "\t---------"
+    print "\t", grid[3], "|", grid[4], "|", grid[5]
+    print "\t---------"
+    print "\t", grid[6], "|", grid[7], "|", grid[8]
+    print
+
+
 def main():
     """Main game loop."""
     print_welcome()
+
     computer_turn = get_first_turn()
     computer, player = set_pieces(computer_turn)
+    
+    grid = create_grid()
+    print_grid(grid)
