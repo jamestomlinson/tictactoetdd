@@ -161,42 +161,51 @@ class WinnerTests(unittest.TestCase):
         self.grid[7] = "X"
         self.grid[8] = "X"
 
-    def test_get_winner_with_top_row_X_returns_X(self):
+    def test_get_winner_computer_top_row_X_returns_1(self):
         self.grid[0] = "X"
         self.grid[1] = "X"
         self.grid[2] = "X"
 
-        winner = tictactoe.get_winner(self.grid)
+        winner = tictactoe.get_winner(self.grid, "X", "O")
 
-        self.assertEqual(winner, "X")
+        self.assertEqual(winner, 1)
 
-    def test_get_winner_with_top_row_O_returns_O(self):
+    def test_get_winner_computer_top_row_O_returns_1(self):
         self.grid[0] = "O"
         self.grid[1] = "O"
         self.grid[2] = "O"
 
-        winner = tictactoe.get_winner(self.grid)
+        winner = tictactoe.get_winner(self.grid, "O", "X")
 
-        self.assertEqual(winner, "O")
+        self.assertEqual(winner, 1)
 
-    def test_get_winner_with_left_column_X_returns_X(self):
+    def test_get_winner_player_top_row_X_returns_neg_1(self):
         self.grid[0] = "X"
-        self.grid[3] = "X"
-        self.grid[6] = "X"
+        self.grid[1] = "X"
+        self.grid[2] = "X"
 
-        winner = tictactoe.get_winner(self.grid)
+        winner = tictactoe.get_winner(self.grid, "O", "X")
 
-        self.assertEqual(winner, "X")
+        self.assertEqual(winner, -1)
 
-    def test_get_winner_with_full_grid_and_no_combo_returns_tie(self):
-        winner = tictactoe.get_winner(self.grid)
+    def test_get_winner_player_top_row_O_returns_neg_1(self):
+        self.grid[0] = "O"
+        self.grid[1] = "O"
+        self.grid[2] = "O"
 
-        self.assertEqual(winner, "tie")
+        winner = tictactoe.get_winner(self.grid, "X", "O")
+
+        self.assertEqual(winner, -1)
+
+    def test_get_winner_with_full_grid_and_no_combo_returns_0(self):
+        winner = tictactoe.get_winner(self.grid, "X", "O")
+
+        self.assertEqual(winner, 0)
 
     def test_get_winner_with_empty_cells_returns_none(self):
         grid = tictactoe.create_grid()
 
-        winner = tictactoe.get_winner(grid)
+        winner = tictactoe.get_winner(grid, "X", "O")
 
         self.assertIsNone(winner)
 

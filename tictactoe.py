@@ -66,7 +66,7 @@ def switch(turn):
     return not turn
 
 
-def get_winner(grid):
+def get_winner(grid, computer, player):
     """Determines if there is a winning combination of pieces in grid."""
     win_states = [(0, 1, 2),    # Top row
                   (3, 4, 5),    # Middle row
@@ -79,9 +79,12 @@ def get_winner(grid):
 
     for state in win_states:
         if grid[state[0]] == grid[state[1]] == grid[state[2]] != SPACE:
-            return grid[state[0]]
+            if grid[0] == computer:
+                return 1
+            else:
+                return -1
 
     if SPACE not in grid:
-        return "tie"
+        return 0
 
     return None
