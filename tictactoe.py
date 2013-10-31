@@ -9,10 +9,10 @@ def create_grid():
 
 def ask_binary_question(get_binary_response):
     """Returns True if "y", False if "n", otherwise keeps asking."""
-    if get_binary_response() == "y":
+    if get_binary_response().lower() == "y":
         return True
 
-    if get_binary_response() == "n":
+    if get_binary_response().lower() == "n":
         return False
 
     return None
@@ -33,6 +33,8 @@ def ask_number_question(get_number_response):
 
     if number in range(1, GRID_SIZE + 1):
         return number - 1
+
+    return None
 
 
 def get_number_response():

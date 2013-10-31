@@ -36,6 +36,16 @@ class BinaryQuestionTests(unittest.TestCase):
 
         self.assertIsNone(result)
 
+    def test_ask_binary_question_with_Y_returns_true(self):
+        result = tictactoe.ask_binary_question(lambda: "Y")
+
+        self.assertEqual(result, True)
+
+    def test_ask_binary_question_with_N_returns_true(self):
+        result = tictactoe.ask_binary_question(lambda: "N")
+
+        self.assertEqual(result, False)
+
 
 class NumberQuestionTests(unittest.TestCase):
     """Tests for the ask_number_question function."""
