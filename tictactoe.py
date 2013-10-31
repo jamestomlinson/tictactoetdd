@@ -207,6 +207,18 @@ def get_player_move(grid, player):
     return move
 
 
+def print_winner(winner):
+    """Prints a message for the winner."""
+    if winner == 0:
+        print "Game ended in a tie."
+
+    elif winner == 1:
+        print "Computer wins. Game over."
+
+    elif winner == -1:
+        print "This should not be possible..."
+
+
 def main():
     """Main game loop."""
     print_welcome()
@@ -228,4 +240,12 @@ def main():
 
         computer_turn = switch(computer_turn)
         print_grid(grid)
+
         winner = get_winner(grid, computer)
+    
+    print_winner(winner)
+    raw_input("Press Enter to exit...")
+
+
+if __name__ == "__main__":
+    main()
