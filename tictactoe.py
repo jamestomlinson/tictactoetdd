@@ -115,7 +115,17 @@ def get_first_turn():
     return not turn
 
 
+def set_pieces(turn):
+    """If the computer goes first, return 'X', 'O', otherwise the opposite."""
+    if turn:
+        return "X", "O"
+
+    else:
+        return "O", "X"
+
+
 def main():
     """Main game loop."""
     print_welcome()
     computer_turn = get_first_turn()
+    computer, player = set_pieces(computer_turn)

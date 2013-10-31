@@ -210,5 +210,24 @@ class WinnerTests(unittest.TestCase):
         self.assertIsNone(winner)
 
 
+class SetPiecesTests(unittest.TestCase):
+    """Tests for the set_pieces function."""
+    def test_set_pieces_computer_goes_first_returns_X_O(self):
+        computer_first = True
+
+        computer, player = tictactoe.set_pieces(computer_first)
+
+        self.assertEqual(computer, "X")
+        self.assertEqual(player, "O")
+
+    def test_set_pieces_player_goes_first_returns_O_X(self):
+        computer_first = False
+
+        computer, player = tictactoe.set_pieces(computer_first)
+
+        self.assertEqual(computer, "O")
+        self.assertEqual(player, "X")
+
+
 if __name__ == '__main__':
     unittest.main()
