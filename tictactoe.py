@@ -135,12 +135,68 @@ def print_grid(grid):
     print
 
 
+def get_computer_move(grid, computer_turn, computer, player):
+    """Returns the computer's move."""
+    move, score = find_best_move(grid, computer_turn, computer, player, -1, 1)
+
+    print "Computer chooses", computer, "at position", move + 1
+
+    return move
+
+
+def find_best_move(grid, computer_turn, computer, player, alpha, beta):
+    """Finds the best move using the minimax algorithm."""
+    best_move = None
+
+    winner = get_winner(grid, computer)
+
+    if winner is not None:
+        return best_move, winner
+
+    if computer_turn:
+        best_score = alpha
+        piece = computer
+
+    else:
+        best_score = beta
+        piece = player
+
+    for move in get_legal_moves(grid):
+        place(grid, move, piece)
+        reply_move, reply_score = find_best_move(
+                grid, not computer_turn, computer, player, alpha, beta
+                )
+        remove_piece(grid, move)
+
+        if computer_turn and reply_score > best_score:
+            best_move = move
+            best_score = reply_score
+            alpha = reply_score
+
+        elif not computer_turn and reply_score < best_score:
+            best_move = move
+            best_score = reply_score
+            beta = reply_score
+
+        if alpha >= beta:
+            return best_move, best_score
+
+    return best_move, best_score
+
+
 def main():
     """Main game loop."""
     print_welcome()
 
     computer_turn = get_first_turn()
     computer, player = set_pieces(computer_turn)
-    
+
     grid = create_grid()
-    print_grid(grid)
+
+    while get_winner(grid, computer) is None:
+        if computer_turn:
+            move = get_computer_move(grid, computer_turn, computer, player)
+            place(grid, move, computer)
+
+        switch(computer_turn)
+        print_grid(grid)
