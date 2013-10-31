@@ -79,6 +79,17 @@ class PlacePieceTests(unittest.TestCase):
         self.assertRaises(ValueError, tictactoe.place, self.grid, 1, "Y")
 
 
+class RemovePieceTests(unittest.TestCase):
+    """Tests for the remove_piece function."""
+    def test_remove_piece_with_one_sets_cell_one_to_space(self):
+        grid = tictactoe.create_grid()
+        grid[1] = "X"
+
+        tictactoe.remove_piece(grid, 1)
+
+        self.assertEqual(grid[1], " ")
+
+
 class LegalMovesTests(unittest.TestCase):
     """Tests for the get_legal_moves function."""
     def setUp(self):

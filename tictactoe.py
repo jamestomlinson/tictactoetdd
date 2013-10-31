@@ -46,7 +46,12 @@ def place(grid, cell, piece):
         grid[cell] = piece
 
     else:
-        raise ValueError("Piece must be 'X' or 'O.'")
+        raise ValueError("Piece must be 'X' or 'O'.")
+
+
+def remove_piece(grid, cell):
+    """Removes piece at grid[cell] by setting it to SPACE."""
+    grid[cell] = SPACE
 
 
 def get_legal_moves(grid):
