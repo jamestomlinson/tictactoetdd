@@ -129,5 +129,77 @@ class LegalMovesTests(unittest.TestCase):
         self.assertEqual(legal_length, 0)
 
 
+class SwitchTurnTests(unittest.TestCase):
+    """Tests for the switch function."""
+    def test_switch_when_turn_is_true_returns_false(self):
+        turn = True
+
+        turn = tictactoe.switch(turn)
+
+        self.assertEqual(turn, False)
+
+    def test_switch_when_turn_is_false_returns_true(self):
+        turn = False
+
+        turn = tictactoe.switch(turn)
+
+        self.assertEqual(turn, True)
+
+
+class WinnerTests(unittest.TestCase):
+    """Tests for the get_winner function."""
+    def setUp(self):
+        self.grid = tictactoe.create_grid()
+
+        self.grid[0] = "X"
+        self.grid[1] = "O"
+        self.grid[2] = "X"
+        self.grid[3] = "X"
+        self.grid[4] = "O"
+        self.grid[5] = "O"
+        self.grid[6] = "O"
+        self.grid[7] = "X"
+        self.grid[8] = "X"
+
+    def test_get_winner_with_top_row_X_returns_X(self):
+        self.grid[0] = "X"
+        self.grid[1] = "X"
+        self.grid[2] = "X"
+
+        winner = tictactoe.get_winner(self.grid)
+
+        self.assertEqual(winner, "X")
+
+    def test_get_winner_with_top_row_O_returns_O(self):
+        self.grid[0] = "O"
+        self.grid[1] = "O"
+        self.grid[2] = "O"
+
+        winner = tictactoe.get_winner(self.grid)
+
+        self.assertEqual(winner, "O")
+
+    def test_get_winner_with_left_column_X_returns_X(self):
+        self.grid[0] = "X"
+        self.grid[3] = "X"
+        self.grid[6] = "X"
+
+        winner = tictactoe.get_winner(self.grid)
+
+        self.assertEqual(winner, "X")
+
+    def test_get_winner_with_full_grid_and_no_combo_returns_tie(self):
+        winner = tictactoe.get_winner(self.grid)
+
+        self.assertEqual(winner, "tie")
+
+    def test_get_winner_with_empty_cells_returns_none(self):
+        grid = tictactoe.create_grid()
+
+        winner = tictactoe.get_winner(grid)
+
+        self.assertIsNone(winner)
+
+
 if __name__ == '__main__':
     unittest.main()
