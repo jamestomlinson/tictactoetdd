@@ -79,7 +79,7 @@ def get_winner(grid, computer):
 
     for state in win_states:
         if grid[state[0]] == grid[state[1]] == grid[state[2]] != SPACE:
-            if grid[0] == computer:
+            if grid[state[0]] == computer:
                 return 1
             else:
                 return -1
@@ -139,7 +139,8 @@ def get_computer_move(grid, computer_turn, computer, player):
     """Returns the computer's move."""
     move, score = find_best_move(grid, computer_turn, computer, player, -1, 1)
 
-    print "Computer chooses", computer, "at position", move + 1
+    print "Computer chooses " + computer + " at position "\
+        + str(move + 1) + ". Your turn."
 
     return move
 
@@ -147,6 +148,7 @@ def get_computer_move(grid, computer_turn, computer, player):
 def find_best_move(grid, computer_turn, computer, player, alpha, beta):
     """Finds the best move using the minimax algorithm."""
     best_move = None
+    best_score = None
 
     winner = get_winner(grid, computer)
 
@@ -184,6 +186,27 @@ def find_best_move(grid, computer_turn, computer, player, alpha, beta):
     return best_move, best_score
 
 
+def get_player_move(grid, player):
+    """Returns the player's move choice."""
+    print "Select your move by entering a number corresponding to the grid."
+
+    legal_moves = get_legal_moves(grid)
+    move = None
+
+    while move not in legal_moves:
+        move = ask_number_question(get_number_response)
+
+        if move is None:
+            print "Invalid move. Please select a number between 1 and 9."
+
+        elif move not in legal_moves:
+            print "Invalid move. That move has already been taken."
+
+    print "Placing " + player + " at position " + str(move + 1) + "."
+
+    return move
+
+
 def main():
     """Main game loop."""
     print_welcome()
@@ -192,11 +215,17 @@ def main():
     computer, player = set_pieces(computer_turn)
 
     grid = create_grid()
+    winner = get_winner(grid, computer)
 
-    while get_winner(grid, computer) is None:
+    while winner is None:
         if computer_turn:
             move = get_computer_move(grid, computer_turn, computer, player)
             place(grid, move, computer)
 
-        switch(computer_turn)
+        else:
+            move = get_player_move(grid, player)
+            place(grid, move, player)
+
+        computer_turn = switch(computer_turn)
         print_grid(grid)
+        winner = get_winner(grid, computer)
